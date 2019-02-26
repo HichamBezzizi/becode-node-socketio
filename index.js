@@ -5,7 +5,7 @@ var socket = require("socket.io");
 
 // App
 var app = express();
-var appServer = app.listen(5000, function(){
+var appServer = app.listen(1234, function(){
     console.log("Running Server....")
 });
 
@@ -22,4 +22,26 @@ io.on("connection", function(frontendSocket){
     frontendSocket.on("chat", function(data){
         io.sockets.emit("chat", data)
     })
+
+    frontendSocket.on("typing", function(data){
+        frontendSocket.broadcast.emit("typing", data)
+    })
 });
+
+
+//displays how many users are connected
+users =[];
+connections=[];
+//users connected
+io.sockets.on('connection', (socket)=>{
+    connections.push(socket);
+    io.sockets.emit("get users", connections.length)
+    console.log('connected: %s users connected', connections.length);
+
+    //users disconnected
+        socket.on('disconnect', (data)=>{  
+            connections.splice(connections.indexOf(socket), 1);
+            console.log('disconnected: %s users connected', connections.length);
+        })
+    });
+
