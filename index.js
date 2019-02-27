@@ -36,12 +36,23 @@ connections=[];
 io.sockets.on('connection', (socket)=>{
     connections.push(socket);
     io.sockets.emit("get users", connections.length)
-    console.log('connected: %s users connected', connections.length);
+    console.log('Connected: %s user(s) connected', connections.length);
 
     //users disconnected
         socket.on('disconnect', (data)=>{  
             connections.splice(connections.indexOf(socket), 1);
-            console.log('disconnected: %s users connected', connections.length);
+            console.log('Disconnected: %s user(s) connected', connections.length);
         })
+        //new users
+        socket.on("new user",(data, callback)=>{
+            callback(true);
+            socket.username = data;
+            users.push(socket.username);
+            updateUser();
+
+        })
+        const updateUser = () =>{
+            io.sockets.emit("get a user", users);
+        }
     });
 

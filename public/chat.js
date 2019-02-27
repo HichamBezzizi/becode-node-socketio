@@ -9,7 +9,10 @@ var chatButton = document.getElementById("chatButton");
 var chatData = document.getElementById("chatData");
 var users = document.getElementById("users");
 var feedback = document.getElementById("feedBack");
- var colors = [
+
+
+//random colors for the chat usernames
+var colors = [
      "#df0bbe", 
      "#e0a316",
      "#64bd52",
@@ -20,7 +23,13 @@ var feedback = document.getElementById("feedBack");
 var random_color = colors[Math.floor(Math.random() * colors.length)];
 document.getElementById("chatData").style.color = random_color;
 
-
+//Eventlistener for enter key when submitting a msg
+chatMessage.addEventListener("keydown", function(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      document.getElementById("chatButton").click();
+    }
+  });
 
 //Event for emit
 chatButton.addEventListener("click",function(){
@@ -35,6 +44,10 @@ chatButton.addEventListener("click",function(){
 //Event for chat
 chatMessage.addEventListener("keypress", function(){
     frontendSocket.emit("typing", userName.value)
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.getElementById("chatButton").click();
+      }
 });
 
 
@@ -43,7 +56,7 @@ frontendSocket.on("chat", function(data){
     feedback.innerHTML = ""
     chatData.innerHTML += "<p><strong>" + data.username + ": </strong>" + data.chatmessage + "</p>"
     //makes the chat scroll
-    document.getElementById("chatData").lastChild.scrollIntoView()
+    document.getElementById("chatData").lastChild.scrollIntoView({block: "end", behavior: "smooth"})
 });
 
 frontendSocket.on("typing", function(data){
@@ -57,3 +70,14 @@ frontendSocket.on("get users", function(data){
     //this will display the users in the frontend
     users.textContent = "Users connected: " + data;
 });
+
+
+//Event for logged in users
+frontendSocket.on("get a user",(data)=>{
+    let html =""
+    for(i=0; i < data.length; i++){
+        //html += '<li class="list-group-item>"${data[!]}</li>';
+    }
+    users.html(html);
+});
+

@@ -88,3 +88,15 @@ button:active {
     max-width: 600px;
     margin: 30px auto;
 }
+
+
+#onlineUsers{
+    max-width: 300px;
+    border: 5px solid #6f75e0;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    border-radius: 14px;
+    box-shadow: 5px 10px #7804bb;
+    color: #6f75e0;
+    padding: 5px;
+    border-bottom: 1px solid rgba(87, 94, 216, 0.5);
+}
