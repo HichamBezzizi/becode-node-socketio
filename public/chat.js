@@ -56,13 +56,13 @@ chatMessage.addEventListener("keypress", function (e) {
 //Event for listen
 frontendSocket.on("chat", function (data) {
     feedback.innerHTML = ""
-    chatData.innerHTML += "<p><strong>" + data.username + ": </strong>" + data.chatmessage + "</p>"
+    chatData.innerHTML += `<p><strong>${data.username}: </strong> ${data.chatmessage} </p>`
     //makes the chat scroll
     document.getElementById("chatData").lastChild.scrollIntoView({ block: "end", behavior: "smooth" })
 });
 
 frontendSocket.on("typing", function (data) {
-    feedback.innerHTML = "<p><em>" + data + " is typing a message...</em></p>"
+    feedback.innerHTML = `<p><em>" ${data} is typing a message...</em></p>`
 });
 
 
