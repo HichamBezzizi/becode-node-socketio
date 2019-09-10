@@ -9,7 +9,7 @@ let chatButton = document.getElementById("chatButton");
 let chatData = document.getElementById("chatData");
 let users = document.getElementById("users");
 let feedback = document.getElementById("feedBack");
-let connectUsers = document.getElementById("onlineusers");
+let connectUsers = document.getElementById("onlineUsers");
 
 
 //random colors for the chat usernames
